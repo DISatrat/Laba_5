@@ -11,7 +11,7 @@ namespace Laba_5
         static void Main(string[] args)
         {
             // с номера 4
-            N22();
+            N4();
             Console.ReadLine();
         }
         public static void N4()
@@ -19,12 +19,12 @@ namespace Laba_5
             Console.WriteLine("матрица А");
             int[,] masA = Rand(5, 5, -10, 10);
             Print(masA);
-            PoiskMax(masA);
+           // PoiskMax(masA);
             Console.WriteLine();
             Console.WriteLine("матрица B");
             int[,] masB = Rand(5, 5, -5, 9);
             Print(masB);
-            PoiskMax(masB);
+            //PoiskMax(masB);
             int max = -1000;
             int ki = 0;
             int kj = 0;
@@ -57,16 +57,25 @@ namespace Laba_5
             }
 
             int[] mas2 = new int[5];
+
+            int t = PoiskMax(masA);
+            int kj2 = PoiskMax2(masB);
             for (int i = 0; i < masA.GetLength(0); i++)
             {
-                for (int j = 0; j < masA.GetLength(1); j++)
-                {
-                    masA[ki, j] = masB[i, kj1];
-
-
-                }
+                mas2[i] = masA[t, i];
+                    masA[t, i] = masB[i, t];
+                Console.Write(mas2[i]+" ");    
             }
+            Console.WriteLine();
+            for (int i = 0; i < masA.GetLength(1); i++)
+            {
+                masB[kj2,i]=mas2[i];
+            }
+            Console.WriteLine(t);
+            Console.WriteLine(kj2);
             Print(masA);
+            Console.WriteLine();
+            Print(masB);
 
         }
         public static void N10()
@@ -173,7 +182,7 @@ namespace Laba_5
                     if (mas[j, i] < 0 && mas[j, i] > max)
                     {
                         max = mas[j, i];
-                        
+
                     }
                 }
                 if (max > -1000)
@@ -289,7 +298,7 @@ namespace Laba_5
             Console.WriteLine();
         }
 
-        static void PoiskMax(int[,] mas)
+        static int PoiskMax(int[,] mas)
         {
             int max = -10000;
             int ki = 0;
@@ -309,17 +318,18 @@ namespace Laba_5
             int max1 = -10000;
             int ki1 = 0;
             int kj1 = 0;
+            int k = 4;
             for (int i = 0; i < mas.GetLength(0); i++)
             {
-                for (int j = mas.GetLength(1) - 1; j >= 0; j--)
-                {
-                    if (i == j && mas[i, j] > max1)
-                    {
-                        max1 = mas[i, j];
-                        ki1 = i;
-                        kj1 = j;
-                    }
-                }
+
+
+
+
+                max1 = mas[i, k];
+                ki1 = i;
+                kj1 = k;
+                k--;
+
             }
             int glavMax = 0;
             int gki = 0;
@@ -338,34 +348,63 @@ namespace Laba_5
 
             }
             Console.WriteLine("maximum for =" + glavMax + " i=" + gki + " j=" + gkj);
+            return gki;
 
-            //    Console.WriteLine(max1);
-            //int max1 = -10000;
-            //int ki1 = 0;
-            //int kj1 = 0;
-            //for (int i = 0; i < mas1.GetLength(0); i++)
-            //{
-            //    for (int j = 0; j < mas1.GetLength(1); j++)
-            //    {
-            //        if (i == j && mas1[i, j] > max1)
-            //        {
-            //            max1 = mas1[i, j];
-            //            ki1 = i;
-            //            kj1 = j;
-            //        }
-            //    }
-            //}
-            //Console.WriteLine("maximum for B=" + max1 + " i=" + ki1 + " j=" + kj1);
-
-            //for (int i = ki; i < mas.GetLength(0); i++)
-            //{
-            //    for (int j = kj1; j < mas.GetLength(1); j++)
-            //    {
-
-            //    }
-            //}
+        
         }
-        static void PoiskMaxDiag(int[,] mas)
+        static int PoiskMax2(int[,] mas)
+        {
+            int max = -10000;
+            int ki = 0;
+            int kj = 0;
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+                for (int j = 0; j < mas.GetLength(1); j++)
+                {
+                    if (i == j && mas[i, j] > max)
+                    {
+                        max = mas[i, j];
+                        ki = i;
+                        kj = j;
+                    }
+                }
+            }
+            int max1 = -10000;
+            int ki1 = 0;
+            int kj1 = 0;
+            int k = 4;
+            for (int i = 0; i < mas.GetLength(0); i++)
+            {
+
+
+
+
+                max1 = mas[i, k];
+                ki1 = i;
+                kj1 = k;
+                k--;
+
+            }
+            int glavMax = 0;
+            int gki = 0;
+            int gkj = 0;
+            if (max1 > max)
+            {
+                glavMax = max1;
+                gki = ki1;
+                gkj = kj1;
+            }
+            else
+            {
+                glavMax = max;
+                gki = ki;
+                gkj = kj;
+
+            }
+            Console.WriteLine("maximum for =" + glavMax + " i=" + gki + " j=" + gkj);
+            return gki;
+        }
+            static void PoiskMaxDiag(int[,] mas)
         {
             int max = -10000;
             int ki = 0;
